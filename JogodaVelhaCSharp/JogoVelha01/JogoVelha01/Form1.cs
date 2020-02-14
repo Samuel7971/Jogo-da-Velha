@@ -57,38 +57,12 @@ namespace JogoVelha01
 
         private void radioButtonJogadorX_CheckedChanged(object sender, EventArgs e)
         {
-                 //Código desnecessário lembrete! 
-            
-            /*if (radioButtonJogadorX.Checked == true)
-            {
-                btn_01.Enabled = true;
-                btn_02.Enabled = true;
-                btn_03.Enabled = true;
-                btn_04.Enabled = true;
-                btn_05.Enabled = true;
-                btn_06.Enabled = true;
-                btn_07.Enabled = true;
-                btn_08.Enabled = true;
-                btn_09.Enabled = true;
-            }*/
+               
         }
 
         private void radioButtonJogadorO_CheckedChanged(object sender, EventArgs e)
         {
-            //Código desnecessário lembrete! 
-
-            /* if (radioButtonJogadorO.Checked == true)
-             {
-                 btn_01.Enabled = true;
-                 btn_02.Enabled = true;
-                 btn_03.Enabled = true;
-                 btn_04.Enabled = true;
-                 btn_05.Enabled = true;
-                 btn_06.Enabled = true;
-                 btn_07.Enabled = true;
-                 btn_08.Enabled = true;
-                 btn_09.Enabled = true;
-             }*/
+                        
         }
 
         public void btn_01_Click(object sender, EventArgs e)
