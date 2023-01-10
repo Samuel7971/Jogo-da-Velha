@@ -486,16 +486,8 @@ namespace JogoVelha01
                 radioButtonJogadorO.Checked = true;
             }
 
-            btn_01.Text = "";
-            btn_02.Text = "";
-            btn_03.Text = "";
-            btn_04.Text = "";
-            btn_05.Text = "";
-            btn_06.Text = "";
-            btn_07.Text = "";
-            btn_08.Text = "";
-            btn_09.Text = "";
-      
+            LimparBotoes();
+
             btn_01.Enabled = true;
             btn_02.Enabled = true;
             btn_03.Enabled = true;
@@ -522,20 +514,10 @@ namespace JogoVelha01
             this.WindowState = FormWindowState.Minimized;
         }
 
-
-        
         private void btn_Zerar_Click(object sender, EventArgs e)
         {
             //Teste botão Zerar
-            btn_01.Text = "";
-            btn_02.Text = "";
-            btn_03.Text = "";
-            btn_04.Text = "";
-            btn_05.Text = "";
-            btn_06.Text = "";
-            btn_07.Text = "";
-            btn_08.Text = "";
-            btn_09.Text = "";
+            LimparBotoes();
             textBoxPontoX.Text = "";
             textBoxPontoO.Text = "";
             pontoO = 0;
@@ -547,8 +529,19 @@ namespace JogoVelha01
             radioButtonJogadorO.Enabled = true;
             radioButtonJogadorO.Checked = false;
             radioButtonJogadorX.Checked = false;
+        }
 
-
+        public void LimparBotoes()
+        {
+            btn_01.Text = "";
+            btn_02.Text = "";
+            btn_03.Text = "";
+            btn_04.Text = "";
+            btn_05.Text = "";
+            btn_06.Text = "";
+            btn_07.Text = "";
+            btn_08.Text = "";
+            btn_09.Text = "";
         }
 
     }
