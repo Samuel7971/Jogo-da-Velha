@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,30 +14,15 @@ namespace JogoVelha01
     public partial class Form1 : Form
     {
         //Variáveis:
-        int pontoX = 0, pontoO = 0;
+        int pontoX = 0, pontoO = 0, empate = 0;
 
-        string ganhador = "";
+        string ganhador = string.Empty;
 
         public Form1()
         {
             InitializeComponent();
 
-            Limpar();
-        }
-
-        private void Limpar()
-        {
-            btn_01.Enabled = false;
-            btn_02.Enabled = false;
-            btn_03.Enabled = false;
-            btn_04.Enabled = false;
-            btn_05.Enabled = false;
-            btn_06.Enabled = false;
-            btn_07.Enabled = false;
-            btn_08.Enabled = false;
-            btn_09.Enabled = false;
-            radioButtonJogadorX.Enabled = false;
-            radioButtonJogadorO.Enabled = false;
+            DesabilitarBotoes();
         }
 
         private void button_Iniciar_Click(object sender, EventArgs e)
@@ -52,441 +38,220 @@ namespace JogoVelha01
             btn_07.Enabled = true;
             btn_08.Enabled = true;
             btn_09.Enabled = true;
-           
-        }
 
-        private void radioButtonJogadorX_CheckedChanged(object sender, EventArgs e)
-        {
-                 //Código desnecessário lembrete! 
-            
-            /*if (radioButtonJogadorX.Checked == true)
-            {
-                btn_01.Enabled = true;
-                btn_02.Enabled = true;
-                btn_03.Enabled = true;
-                btn_04.Enabled = true;
-                btn_05.Enabled = true;
-                btn_06.Enabled = true;
-                btn_07.Enabled = true;
-                btn_08.Enabled = true;
-                btn_09.Enabled = true;
-            }*/
-        }
-
-        private void radioButtonJogadorO_CheckedChanged(object sender, EventArgs e)
-        {
-            //Código desnecessário lembrete! 
-
-            /* if (radioButtonJogadorO.Checked == true)
-             {
-                 btn_01.Enabled = true;
-                 btn_02.Enabled = true;
-                 btn_03.Enabled = true;
-                 btn_04.Enabled = true;
-                 btn_05.Enabled = true;
-                 btn_06.Enabled = true;
-                 btn_07.Enabled = true;
-                 btn_08.Enabled = true;
-                 btn_09.Enabled = true;
-             }*/
         }
 
         public void btn_01_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_01.Text = "X";
-                btn_01.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_01.Text = "O";
-                btn_01.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador();   // chamando função para verificar ganhador vertical superior
-            Ganhador3();  // chamando função para verificar ganhador(|  )
-            Ganhador7();  // chamando função para verificar ganhador( \ )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalSuperior();
+            GanhadorVerticalEsquerda();
+            GanhadorTransversalEsquerdaDireita();
         }
 
         private void btn_02_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_02.Text = "X";
-                btn_02.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_02.Text = "O";
-                btn_02.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador();   // chamando função para verificar ganhador vertical superior
-            Ganhador4();  // chamando função para verificar ganhador( | )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalSuperior();
+            GanhadorVerticalCentro();
         }
 
         private void btn_03_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_03.Text = "X";
-                btn_03.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_03.Text = "O";
-                btn_03.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador();   // chamando função para verificar ganhador vertical superior
-            Ganhador5();  // chamando função para verificar ganhador(  |)
-            Ganhador6();  // chamando função para verificar ganhador( / )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalSuperior();
+            GanhadorVerticaoDireita();
+            GanhadorTransversalDireitaEsquerda();
         }
 
         private void btn_04_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_04.Text = "X";
-                btn_04.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_04.Text = "O";
-                btn_04.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador1();  // chamando função para verificar ganhador(---)
-            Ganhador3();  // chamando função para verificar ganhador(|  )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalMeio();
+            GanhadorVerticalEsquerda();
         }
 
         private void btn_05_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_05.Text = "X";
-                btn_05.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_05.Text = "O";
-                btn_05.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador1();  // chamando função para verificar ganhador(---)
-            Ganhador4();  // chamando função para verificar ganhador( | )
-            Ganhador6();  // chamando função para verificar ganhador( / )
-            Ganhador7();  // chamando função para verificar ganhador( \ )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalMeio();
+            GanhadorVerticalCentro();
+            GanhadorTransversalDireitaEsquerda();
+            GanhadorTransversalEsquerdaDireita();
         }
 
         private void btn_06_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_06.Text = "X";
-                btn_06.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_06.Text = "O";
-                btn_06.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador1();  // chamando função para verificar ganhador(---)
-            Ganhador5();  // chamando função para verificar ganhador(  |)
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalMeio();
+            GanhadorVerticaoDireita();
         }
 
         private void btn_07_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_07.Text = "X";
-                btn_07.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_07.Text = "O";
-                btn_07.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador2();  // chamando função para verificar ganhador(___)
-            Ganhador3();  // chamando função para verificar ganhador(|  )
-            Ganhador6();  // chamando função para verificar ganhador( / )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalBaixo();
+            GanhadorVerticalEsquerda();
+            GanhadorTransversalDireitaEsquerda();
         }
 
         private void btn_08_Click(object sender, EventArgs e)
         {
-            if (radioButtonJogadorX.Checked == true)
-            {
-                this.btn_08.Text = "X";
-                btn_08.Enabled = false;
-                radioButtonJogadorO.Checked = true;
-            }
-            else
-            {
-                this.btn_08.Text = "O";
-                btn_08.Enabled = false;
-                radioButtonJogadorX.Checked = true;
-            }
-            Ganhador2();  // chamando função para verificar ganhador(___)
-            Ganhador4();  // chamando função para verificar ganhador( | )
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalBaixo();
+            GanhadorVerticalCentro();
         }
 
         private void btn_09_Click(object sender, EventArgs e)
         {
+            VerificarProximoJogador(sender, e);
+
+            GanhadorHorizontalBaixo();
+            GanhadorVerticaoDireita();
+            GanhadorTransversalEsquerdaDireita();
+        }
+
+        private void VerificarProximoJogador(object sender, EventArgs e)
+        {
+            Button button = (Button)sender;
             if (radioButtonJogadorX.Checked == true)
             {
-                this.btn_09.Text = "X";
-                btn_09.Enabled = false;
+                button.Text = "X";
+                button.Enabled = false;
                 radioButtonJogadorO.Checked = true;
+                ValidarEmpate();
             }
             else
             {
-                this.btn_09.Text = "O";
-                btn_09.Enabled = false;
+                button.Text = "O";
+                button.Enabled = false;
                 radioButtonJogadorX.Checked = true;
+                ValidarEmpate();
             }
-            Ganhador2();  // chamando função para verificar ganhador(___)
-            Ganhador5();  // chamando função para verificar ganhador(  |)
-            Ganhador7();  // chamando função para verificar ganhador( \ )
+        }
+
+        private void InformarGanhador()
+        {
+            if (radioButtonJogadorO.Checked == true)
+            {
+                MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
+                textBoxPontoX.Text = Convert.ToString(pontoX += 1);
+                button_Iniciar.Enabled = false;
+                btn_NovoJogo.Focus();
+                ganhador = "X";
+                DesabilitarBotoes();
+            }
+
+            else
+            {
+                MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
+                textBoxPontoO.Text = Convert.ToString(pontoO += 1);
+                button_Iniciar.Enabled = false;
+                btn_NovoJogo.Focus();
+                ganhador = "O";
+                DesabilitarBotoes();
+            }
+        }
+
+        private void ValidarEmpate()
+        {
+            if (!string.IsNullOrEmpty(btn_01.Text) &&
+                !string.IsNullOrEmpty(btn_02.Text) &&
+                !string.IsNullOrEmpty(btn_03.Text) &&
+                !string.IsNullOrEmpty(btn_04.Text) &&
+                !string.IsNullOrEmpty(btn_05.Text) &&
+                !string.IsNullOrEmpty(btn_06.Text) &&
+                !string.IsNullOrEmpty(btn_07.Text) &&
+                !string.IsNullOrEmpty(btn_08.Text) &&
+                !string.IsNullOrEmpty(btn_09.Text))
+            {
+                if (MessageBox.Show("EMPATE!!!", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                {
+                    empate += 1;
+                    textBoxEmpate.Text = empate.ToString();
+                    button_Iniciar.Enabled = false;
+                    btn_NovoJogo.Focus();
+                }
+            }
         }
 
         // Verificando ganhador na reta vertical superior
-        public void Ganhador()
+        public void GanhadorHorizontalSuperior()
         {
             if (btn_01.Text == btn_02.Text && btn_02.Text == btn_03.Text)
-            {
-                if(radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");        
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador na reta vertical - meio(---)
-        public void Ganhador1()
+        public void GanhadorHorizontalMeio()
         {
             if (btn_04.Text == btn_05.Text && btn_05.Text == btn_06.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador na reta horizontal de baixo(___)
-        public void Ganhador2()
+        public void GanhadorHorizontalBaixo()
         {
             if (btn_07.Text == btn_08.Text && btn_08.Text == btn_09.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador na vertical da esquerada(|  )
-        public void Ganhador3()
+        public void GanhadorVerticalEsquerda()
         {
             if (btn_01.Text == btn_04.Text && btn_04.Text == btn_07.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador na vertical do meio( | )
-        public void Ganhador4()
+        public void GanhadorVerticalCentro()
         {
             if (btn_02.Text == btn_05.Text && btn_05.Text == btn_08.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador na vartical direita(  |)
-        public void Ganhador5()
+        public void GanhadorVerticaoDireita()
         {
             if (btn_03.Text == btn_06.Text && btn_06.Text == btn_09.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador em  transversal da direita para esquerda( / )
-        public void Ganhador6()
+        public void GanhadorTransversalDireitaEsquerda()
         {
             if (btn_03.Text == btn_05.Text && btn_05.Text == btn_07.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         // Verificando ganhador em transversal da esquerda para a direita( \ )
-        public void Ganhador7()
+        public void GanhadorTransversalEsquerdaDireita()
         {
             if (btn_01.Text == btn_05.Text && btn_05.Text == btn_09.Text)
-            {
-                if (radioButtonJogadorO.Checked == true)
-                {
-                    MessageBox.Show("O jogador" + " X " + "é o vencedor!!!");
-                    textBoxPontoX.Text = Convert.ToString(pontoX += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "X";
-                    Limpar();
-                }
-
-                else
-                {
-                    MessageBox.Show("O jogador" + " O " + "é o vencedor!!!");
-                    textBoxPontoO.Text = Convert.ToString(pontoO += 1);
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                    ganhador = "O";
-                    Limpar();
-                }    
-            }
+                InformarGanhador();
         }
 
         private void btn_NovoJogo_Click(object sender, EventArgs e)
         {
-            if (ganhador == "X")
-            {
-                radioButtonJogadorX.Checked = true;
-            }
-            else
-            {
-                radioButtonJogadorO.Checked = true;
-            }
+            NovoJogo();
+        }
 
-            LimparBotoes();
+        private void NovoJogo()
+        {
+            if (ganhador == "X")
+                radioButtonJogadorX.Checked = true;
+            else
+                radioButtonJogadorO.Checked = true;
+
+            LimparTextBotoes();
 
             btn_01.Enabled = true;
             btn_02.Enabled = true;
@@ -517,31 +282,47 @@ namespace JogoVelha01
         private void btn_Zerar_Click(object sender, EventArgs e)
         {
             //Teste botão Zerar
-            LimparBotoes();
-            textBoxPontoX.Text = "";
-            textBoxPontoO.Text = "";
+            LimparTextBotoes();
+            textBoxPontoX.Text = string.Empty;
+            textBoxPontoO.Text = string.Empty;
+            textBoxEmpate.Text = string.Empty;
             pontoO = 0;
             pontoX = 0;
             button_Iniciar.Enabled = true;
             button_Iniciar.Focus();
-            
+
             radioButtonJogadorX.Enabled = true;
             radioButtonJogadorO.Enabled = true;
             radioButtonJogadorO.Checked = false;
             radioButtonJogadorX.Checked = false;
         }
 
-        public void LimparBotoes()
+        private void LimparTextBotoes()
         {
-            btn_01.Text = "";
-            btn_02.Text = "";
-            btn_03.Text = "";
-            btn_04.Text = "";
-            btn_05.Text = "";
-            btn_06.Text = "";
-            btn_07.Text = "";
-            btn_08.Text = "";
-            btn_09.Text = "";
+            btn_01.Text = string.Empty;   
+            btn_02.Text = string.Empty;
+            btn_03.Text = string.Empty;
+            btn_04.Text = string.Empty;
+            btn_05.Text = string.Empty;
+            btn_06.Text = string.Empty;
+            btn_07.Text = string.Empty;
+            btn_08.Text = string.Empty;
+            btn_09.Text = string.Empty;
+        }
+
+        private void DesabilitarBotoes()
+        {
+            btn_01.Enabled = false;
+            btn_02.Enabled = false;
+            btn_03.Enabled = false;
+            btn_04.Enabled = false;
+            btn_05.Enabled = false;
+            btn_06.Enabled = false;
+            btn_07.Enabled = false;
+            btn_08.Enabled = false;
+            btn_09.Enabled = false;
+            radioButtonJogadorX.Enabled = false;
+            radioButtonJogadorO.Enabled = false;
         }
 
     }

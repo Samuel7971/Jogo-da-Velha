@@ -52,6 +52,8 @@
             this.btn_Zerar = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.lblEmpate = new System.Windows.Forms.Label();
+            this.textBoxEmpate = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
@@ -188,7 +190,6 @@
             this.radioButtonJogadorX.TabIndex = 0;
             this.radioButtonJogadorX.TabStop = true;
             this.radioButtonJogadorX.UseVisualStyleBackColor = true;
-            this.radioButtonJogadorX.CheckedChanged += new System.EventHandler(this.radioButtonJogadorX_CheckedChanged);
             // 
             // radioButtonJogadorO
             // 
@@ -199,7 +200,6 @@
             this.radioButtonJogadorO.TabIndex = 1;
             this.radioButtonJogadorO.TabStop = true;
             this.radioButtonJogadorO.UseVisualStyleBackColor = true;
-            this.radioButtonJogadorO.CheckedChanged += new System.EventHandler(this.radioButtonJogadorO_CheckedChanged);
             // 
             // textBoxPontoX
             // 
@@ -297,11 +297,32 @@
             this.pictureBox2.TabStop = false;
             this.pictureBox2.Click += new System.EventHandler(this.pictureBox2_Click);
             // 
+            // lblEmpate
+            // 
+            this.lblEmpate.AutoSize = true;
+            this.lblEmpate.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblEmpate.ForeColor = System.Drawing.Color.Blue;
+            this.lblEmpate.Location = new System.Drawing.Point(358, 56);
+            this.lblEmpate.Name = "lblEmpate";
+            this.lblEmpate.Size = new System.Drawing.Size(77, 20);
+            this.lblEmpate.TabIndex = 23;
+            this.lblEmpate.Text = "Empates:";
+            // 
+            // textBoxEmpate
+            // 
+            this.textBoxEmpate.Location = new System.Drawing.Point(443, 56);
+            this.textBoxEmpate.Name = "textBoxEmpate";
+            this.textBoxEmpate.ReadOnly = true;
+            this.textBoxEmpate.Size = new System.Drawing.Size(43, 20);
+            this.textBoxEmpate.TabIndex = 24;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(825, 512);
+            this.Controls.Add(this.textBoxEmpate);
+            this.Controls.Add(this.lblEmpate);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btn_Zerar);
@@ -362,6 +383,8 @@
         private System.Windows.Forms.Button btn_Zerar;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label lblEmpate;
+        private System.Windows.Forms.TextBox textBoxEmpate;
     }
 }
 
