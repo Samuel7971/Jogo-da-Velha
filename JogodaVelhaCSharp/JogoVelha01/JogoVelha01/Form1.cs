@@ -32,7 +32,8 @@ namespace JogoVelha01
 
         public void btn_01_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalSuperior();
             GanhadorVerticalEsquerda();
@@ -41,7 +42,8 @@ namespace JogoVelha01
 
         private void btn_02_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalSuperior();
             GanhadorVerticalCentro();
@@ -49,7 +51,8 @@ namespace JogoVelha01
 
         private void btn_03_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalSuperior();
             GanhadorVerticaoDireita();
@@ -58,7 +61,8 @@ namespace JogoVelha01
 
         private void btn_04_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalMeio();
             GanhadorVerticalEsquerda();
@@ -66,7 +70,8 @@ namespace JogoVelha01
 
         private void btn_05_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalMeio();
             GanhadorVerticalCentro();
@@ -76,7 +81,8 @@ namespace JogoVelha01
 
         private void btn_06_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalMeio();
             GanhadorVerticaoDireita();
@@ -84,7 +90,8 @@ namespace JogoVelha01
 
         private void btn_07_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalBaixo();
             GanhadorVerticalEsquerda();
@@ -93,7 +100,8 @@ namespace JogoVelha01
 
         private void btn_08_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
 
             GanhadorHorizontalBaixo();
             GanhadorVerticalCentro();
@@ -101,11 +109,27 @@ namespace JogoVelha01
 
         private void btn_09_Click(object sender, EventArgs e)
         {
-            VerificarProximoJogador(sender, e);
-
+            Verificar(sender, e);
+            //VerificarProximoJogador(sender, e);
             GanhadorHorizontalBaixo();
             GanhadorVerticaoDireita();
             GanhadorTransversalEsquerdaDireita();
+        }
+
+        private bool VerificandoAreaVaga()
+        {
+            if (string.IsNullOrEmpty(btn_01.Text) ||
+                string.IsNullOrEmpty(btn_02.Text) ||
+                string.IsNullOrEmpty(btn_03.Text) ||
+                string.IsNullOrEmpty(btn_04.Text) ||
+                string.IsNullOrEmpty(btn_05.Text) ||
+                string.IsNullOrEmpty(btn_06.Text) ||
+                string.IsNullOrEmpty(btn_07.Text) ||
+                string.IsNullOrEmpty(btn_08.Text) ||
+                string.IsNullOrEmpty(btn_09.Text))
+                return true;
+
+            return false;
         }
 
         private void VerificarProximoJogador(object sender, EventArgs e)
@@ -116,15 +140,12 @@ namespace JogoVelha01
                 button.Text = "X";
                 button.Enabled = false;
                 radioButtonJogadorO.Checked = true;
-                
-                ValidarEmpate();
             }
             else
             {
                 button.Text = "O";
                 button.Enabled = false;
                 radioButtonJogadorX.Checked = true;
-                ValidarEmpate();
             }
         }
 
@@ -157,27 +178,21 @@ namespace JogoVelha01
                 ganhador = string.Empty;
         }
 
-        private void ValidarEmpate()
+        private bool VerificarEmpate()
         {
-            if (!string.IsNullOrEmpty(btn_01.Text) &&
-                !string.IsNullOrEmpty(btn_02.Text) &&
-                !string.IsNullOrEmpty(btn_03.Text) &&
-                !string.IsNullOrEmpty(btn_04.Text) &&
-                !string.IsNullOrEmpty(btn_05.Text) &&
-                !string.IsNullOrEmpty(btn_06.Text) &&
-                !string.IsNullOrEmpty(btn_07.Text) &&
-                !string.IsNullOrEmpty(btn_08.Text) &&
-                !string.IsNullOrEmpty(btn_09.Text) &&
-                !string.IsNullOrEmpty(ganhador))
+            if (btn_01.Text == btn_02.Text && btn_02.Text == btn_03.Text ||
+                btn_04.Text == btn_05.Text && btn_05.Text == btn_06.Text ||
+                btn_07.Text == btn_08.Text && btn_08.Text == btn_09.Text ||
+                btn_01.Text == btn_04.Text && btn_04.Text == btn_07.Text ||
+                btn_02.Text == btn_05.Text && btn_05.Text == btn_08.Text ||
+                btn_03.Text == btn_06.Text && btn_06.Text == btn_09.Text ||
+                btn_03.Text == btn_05.Text && btn_05.Text == btn_07.Text ||
+                btn_01.Text == btn_05.Text && btn_05.Text == btn_09.Text)
             {
-                if (MessageBox.Show("EMPATE!!!", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
-                {
-                    empate += 1;
-                    textBoxEmpate.Text = empate.ToString();
-                    button_Iniciar.Enabled = false;
-                    btn_NovoJogo.Focus();
-                }
+                return false;
             }
+
+            return true;
         }
 
         // Verificando ganhador na reta vertical superior
@@ -274,6 +289,7 @@ namespace JogoVelha01
             textBoxEmpate.Text = string.Empty;
             pontoO = 0;
             pontoX = 0;
+            empate = 0;
             button_Iniciar.Enabled = true;
             button_Iniciar.Focus();
 
@@ -285,7 +301,7 @@ namespace JogoVelha01
 
         private void LimparTextBotoes()
         {
-            btn_01.Text = string.Empty;   
+            btn_01.Text = string.Empty;
             btn_02.Text = string.Empty;
             btn_03.Text = string.Empty;
             btn_04.Text = string.Empty;
@@ -328,6 +344,26 @@ namespace JogoVelha01
             radioButtonJogadorO.Enabled = false;
             btn_NovoJogo.Enabled = false;
             btn_Zerar.Enabled = false;
+        }
+
+        private bool Verificar(object sender, EventArgs e)
+        {
+            VerificarProximoJogador(sender, e);
+            if (!VerificandoAreaVaga())
+            {
+                var retornno = VerificarEmpate();
+                if (retornno)
+                {
+                    if (MessageBox.Show("EMPATE!!!", "", MessageBoxButtons.OKCancel, MessageBoxIcon.Information) == DialogResult.OK)
+                    {
+                        empate += 1;
+                        textBoxEmpate.Text = empate.ToString();
+                        button_Iniciar.Enabled = false;
+                        btn_NovoJogo.Focus();
+                    }
+                }
+            }
+            return true;
         }
 
     }
