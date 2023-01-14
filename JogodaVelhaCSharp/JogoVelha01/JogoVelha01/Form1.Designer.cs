@@ -208,6 +208,7 @@
             this.textBoxPontoX.ReadOnly = true;
             this.textBoxPontoX.Size = new System.Drawing.Size(43, 20);
             this.textBoxPontoX.TabIndex = 15;
+            this.textBoxPontoX.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // textBoxPontoO
             // 
@@ -216,6 +217,7 @@
             this.textBoxPontoO.ReadOnly = true;
             this.textBoxPontoO.Size = new System.Drawing.Size(43, 20);
             this.textBoxPontoO.TabIndex = 14;
+            this.textBoxPontoO.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // labelPontoX
             // 
@@ -315,6 +317,7 @@
             this.textBoxEmpate.ReadOnly = true;
             this.textBoxEmpate.Size = new System.Drawing.Size(43, 20);
             this.textBoxEmpate.TabIndex = 24;
+            this.textBoxEmpate.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // Form1
             // 
